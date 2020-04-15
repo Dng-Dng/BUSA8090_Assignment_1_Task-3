@@ -1,0 +1,51 @@
+Question 1a)
+mysql -u awkologist -p compbiol -e "SELECT* FROM expression ORDER BY gene;" > /home/ubuntu/expression.tsv
+
+Question 1b)
+mysql -u awkologist -p compbiol -e "SELECT* FROM annotation ORDER BY gene;" > /home/ubuntu/annotation.tsv
+
+Question 1c)
+join annotation.tsv expression.tsv
+
+Question 1dii)
+SELECT a1.gene, a1.function, a1.metabolism
+FROM annotation a1 INNER JOIN annotation a2
+ON a1.metabolism = a2.metabolism 
+WHERE a1.function <> a2.function 
+OR a1.gene <> a2.gene;
+
+Question 2aiii)
+SELECT LastName, FirstName 
+FROM Member 
+WHERE Coach IS NULL;
+
+Question 2biii)
+SELECT LastName, FirstName 
+FROM Member 
+WHERE JoinDate >= '2010-01-01' 
+AND JoinDate <= '2010-12-31';
+
+Question 2ciii)
+SELECT DISTINCT(m.LastName), m.FirstName, m.MemberID
+FROM Member m INNER JOIN Entry e
+ON m.MemberID = e.MemberID
+WHERE NOT EXISTS(
+	SELECT e.MemberID 
+	FROM Entry e
+	WHERE m.memberID = e.MemberID
+	AND e.Year = 2014)
+
+-- Question 2dii)
+SELECT m.LastName, m.FirstName, m.MemberID 
+FROM Member m
+WHERE NOT EXISTS
+	(
+	SELECT * FROM Entry e1
+	WHERE NOT EXISTS
+		(
+		SELECT * FROM Entry e2
+		WHERE e2.MemberID = m.MemberID 
+		AND e1.Year = e2.Year
+		)
+	)
+
