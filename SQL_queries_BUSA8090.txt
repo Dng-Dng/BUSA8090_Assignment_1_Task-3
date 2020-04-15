@@ -35,7 +35,7 @@ WHERE NOT EXISTS(
 	WHERE m.memberID = e.MemberID
 	AND e.Year = 2014)
 
--- Question 2dii)
+Question 2dii)
 SELECT m.LastName, m.FirstName, m.MemberID 
 FROM Member m
 WHERE NOT EXISTS(
