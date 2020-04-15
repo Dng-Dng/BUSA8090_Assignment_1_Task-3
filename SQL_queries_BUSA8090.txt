@@ -38,14 +38,12 @@ WHERE NOT EXISTS(
 -- Question 2dii)
 SELECT m.LastName, m.FirstName, m.MemberID 
 FROM Member m
-WHERE NOT EXISTS
-	(
-	SELECT * FROM Entry e1
-	WHERE NOT EXISTS
-		(
-		SELECT * FROM Entry e2
-		WHERE e2.MemberID = m.MemberID 
-		AND e1.Year = e2.Year
-		)
-	)
+WHERE NOT EXISTS(
+SELECT * FROM Entry e1
+WHERE NOT EXISTS(
+SELECT * FROM Entry e2
+WHERE e2.MemberID = m.MemberID 
+AND e1.Year = e2.Year
+)
+)
 
